@@ -1,0 +1,96 @@
+<?php
+/**
+ * Tests for SlabPHP Input Manager
+ *
+ * @package SlabPHP
+ * @subpackage Tests
+ * @author Eric
+ */
+namespace SlabPHP\Tests\Input;
+
+class ManagerTest extends \PHPUnit\Framework\TestCase
+{
+    /**
+     * Test reading parameters
+     */
+    public function testReadParameters()
+    {
+        $_GET = [
+            'test1' => 'string',
+            'test2' => 134,
+            'test3' => ['ok','no']
+        ];
+
+        $_POST = [
+            'test1' => 'string',
+            'test2' => 134,
+            'test3' => ['ok','no']
+        ];
+
+        $_SERVER = [
+            'test1' => 'string',
+            'test2' => 134,
+            'test3' => ['ok','no']
+        ];
+
+        $_FILES = [
+            'one' => [
+                'test1' => 'string',
+                'test2' => 134,
+                'test3' => ['ok','no']
+            ]
+        ];
+
+        $_ENV = [
+            'test1' => 'string',
+            'test2' => 134,
+            'test3' => ['ok','no']
+        ];
+
+        $input =  new \SlabPHP\Input\Manager();
+
+        $this->assertEquals('string', $input->get('test1'));
+        $this->assertEquals(134, $input->get('test2'));
+        $this->assertEquals(['ok','no'], $input->get('test3'));
+
+        $this->assertEquals('string', $input->post('test1'));
+        $this->assertEquals(134, $input->post('test2'));
+        $this->assertEquals(['ok','no'], $input->post('test3'));
+
+        $this->assertEquals('string', $input->request('test1'));
+        $this->assertEquals(134, $input->request('test2'));
+        $this->assertEquals(['ok','no'], $input->request('test3'));
+
+        $this->assertEquals('string', $input->server('test1'));
+        $this->assertEquals(134, $input->server('test2'));
+        $this->assertEquals(['ok','no'], $input->server('test3'));
+
+        $file = $input->file('one');
+        $this->assertEquals('string', $file['test1']);
+        $this->assertEquals(134, $file['test2']);
+        $this->assertEquals(['ok','no'], $file['test3']);
+
+        $this->assertEquals('string', $input->env('test1'));
+        $this->assertEquals(134, $input->env('test2'));
+        $this->assertEquals(['ok','no'], $input->env('test3'));
+    }
+
+    /**
+     * Test cleaning of the vars
+     */
+    public function testCleanVars()
+    {
+        $_GET = [
+            "clean1" => '<script type="text/javascript">alert("hi")</script>',
+            "clean2" => '<s><</s>script type="text/javascript">asdf',
+            "clean3" => ' asdfa sdf  asdf     '
+        ];
+
+        $input =  new \SlabPHP\Input\Manager();
+
+        $this->assertEquals('alert("hi")', $input->get('clean1'));
+        $this->assertEquals('asdf', $input->get('clean2'));
+        $this->assertEquals('asdfa sdf  asdf', $input->get('clean3'));
+    }
+
+}
