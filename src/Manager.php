@@ -70,24 +70,24 @@ class Manager implements \SlabPHP\Components\InputManagerInterface
         $this->shouldSanitizeInput = $sanitizeInput;
         $shouldClearSuperGlobals = $clearSuperGlobals;
 
-        $this->initializeAndCleanSuperGlobal($_GET, 'getParams');
+        $this->initializeAndCleanSuperGlobal($_GET, $this->getParams);
         if ($shouldClearSuperGlobals) unset($_GET);
 
         $this->supplementGetArray();
 
-        $this->initializeAndCleanSuperGlobal($_POST, 'postParams');
+        $this->initializeAndCleanSuperGlobal($_POST, $this->postParams);
         if ($shouldClearSuperGlobals) unset($_POST);
 
-        $this->initializeAndCleanSuperGlobal($_SERVER, 'serverParams');
+        $this->initializeAndCleanSuperGlobal($_SERVER, $this->serverParams);
         if ($shouldClearSuperGlobals) unset($_SERVER);
 
-        $this->initializeAndCleanSuperGlobal($_COOKIE, 'cookieParams');
+        $this->initializeAndCleanSuperGlobal($_COOKIE, $this->cookieParams);
         if ($shouldClearSuperGlobals) unset($_COOKIE);
 
-        $this->initializeAndCleanSuperGlobal($_FILES, 'fileParams');
+        $this->initializeAndCleanSuperGlobal($_FILES, $this->fileParams);
         if ($shouldClearSuperGlobals) unset($_FILES);
 
-        $this->initializeAndCleanSuperGlobal($_ENV, 'environmentParams');
+        $this->initializeAndCleanSuperGlobal($_ENV, $this->environmentParams);
         if ($shouldClearSuperGlobals) unset($_ENV);
 
         if ($shouldClearSuperGlobals) unset($_REQUEST);
@@ -129,11 +129,12 @@ class Manager implements \SlabPHP\Components\InputManagerInterface
      * @param array $superGlobal
      * @param string $localStorage
      */
-    private function initializeAndCleanSuperGlobal(&$superGlobal, $localStorage)
+    private function initializeAndCleanSuperGlobal(&$superGlobal, &$localStorage)
     {
+        $localStorage = [];
         if (!empty($superGlobal)) {
             foreach ($superGlobal as $variableName => $variableValue) {
-                $this->{$localStorage}[$variableName] = $this->cleanVariable($variableValue);
+                $localStorage[$variableName] = $this->cleanVariable($variableValue);
             }
         }
     }
