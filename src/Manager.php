@@ -3,12 +3,12 @@
  * Input Manager Class
  *
  * @author Eric
- * @package SlabPHP
+ * @package Slab
  * @subpackage Input
  */
-namespace SlabPHP\Input;
+namespace Slab\Input;
 
-class Manager implements \SlabPHP\Components\InputManagerInterface
+class Manager implements \Slab\Components\InputManagerInterface
 {
     /**
      * Get variables

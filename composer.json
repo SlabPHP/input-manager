@@ -21,12 +21,12 @@
     "phpunit/phpunit": "^6.5"
   },
   "require": {
-    "slabphp/component-interfaces": "^0.1"
+    "slabphp/component-interfaces": "^0.2"
   },
   "autoload": {
     "psr-4": {
-      "SlabPHP\\Input\\": "src/",
-      "SlabPHP\\Tests\\Input\\": "tests/"
+      "Slab\\Input\\": "src/",
+      "Slab\\Tests\\Input\\": "tests/"
     }
   }
 }

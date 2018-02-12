@@ -2,11 +2,11 @@
 /**
  * Tests for SlabPHP Input Manager
  *
- * @package SlabPHP
+ * @package Slab
  * @subpackage Tests
  * @author Eric
  */
-namespace SlabPHP\Tests\Input;
+namespace Slab\Tests\Input;
 
 class ManagerTest extends \PHPUnit\Framework\TestCase
 {
@@ -47,7 +47,7 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
             'test3' => ['ok','no']
         ];
 
-        $input =  new \SlabPHP\Input\Manager();
+        $input =  new \Slab\Input\Manager();
 
         $this->assertEquals('string', $input->get('test1'));
         $this->assertEquals(134, $input->get('test2'));
@@ -86,7 +86,7 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
             "clean3" => ' asdfa sdf  asdf     '
         ];
 
-        $input =  new \SlabPHP\Input\Manager();
+        $input =  new \Slab\Input\Manager();
 
         $this->assertEquals('alert("hi")', $input->get('clean1'));
         $this->assertEquals('asdf', $input->get('clean2'));
