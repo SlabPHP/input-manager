@@ -93,4 +93,18 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('asdfa sdf  asdf', $input->get('clean3'));
     }
 
+    /**
+     * Test null returns
+     */
+    public function testNulls()
+    {
+        $input =  new \Slab\Input\Manager();
+
+        $this->assertNull($input->get('something'));
+        $this->assertNull($input->post('something'));
+        $this->assertNull($input->cookie('something'));
+        $this->assertNull($input->server('something'));
+        $this->assertNull($input->env('something'));
+        $this->assertNull($input->file('something'));
+    }
 }

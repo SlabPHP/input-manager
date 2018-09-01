@@ -193,11 +193,11 @@ class Manager implements \Slab\Components\InputManagerInterface
      * Return a GET parameter, enter null for the entire array
      *
      * @param string $variable
-     * @param string $default
+     * @param null|string $default
      * @param mixed $validator
-     * @return string
+     * @return null|string
      */
-    public function get($variable = null, $default = '', $validator = null)
+    public function get($variable = null, $default = null, $validator = null)
     {
         $value = $this->returnLocalParam('getParams', $variable, $default);
 
@@ -209,11 +209,11 @@ class Manager implements \Slab\Components\InputManagerInterface
      * Return a POSt parameter, enter null for the entire array
      *
      * @param string $variable
-     * @param string $default
+     * @param null|string $default
      * @param mixed $validator
-     * @return string
+     * @return null|string
      */
-    public function post($variable = null, $default = '', $validator = null)
+    public function post($variable = null, $default = null, $validator = null)
     {
         $value = $this->returnLocalParam('postParams', $variable, $default);
 
@@ -235,7 +235,7 @@ class Manager implements \Slab\Components\InputManagerInterface
      * Return a SERVER parameter, enter null for the entire array
      *
      * @param string $variable
-     * @return string
+     * @return null|string
      */
     public function server($variable = null)
     {
@@ -257,7 +257,7 @@ class Manager implements \Slab\Components\InputManagerInterface
      * Return an environment variable
      *
      * @param string $variable
-     * @return string
+     * @return null|string
      */
     public function env($variable = null)
     {
@@ -268,7 +268,7 @@ class Manager implements \Slab\Components\InputManagerInterface
      * Return a cookie variable
      *
      * @param string $variable
-     * @return string
+     * @return null|string
      */
     public function cookie($variable = null)
     {
@@ -296,9 +296,10 @@ class Manager implements \Slab\Components\InputManagerInterface
      *
      * @param string $localStorage
      * @param string $variable
-     * @param bool $default
+     * @param null $default
+     * @return null|string
      */
-    private function returnLocalParam($localStorage, $variable, $default = false)
+    private function returnLocalParam($localStorage, $variable, $default = null)
     {
         if (!empty($variable)) {
             if (isset($this->{$localStorage}[$variable])) {
@@ -309,17 +310,5 @@ class Manager implements \Slab\Components\InputManagerInterface
         } else {
             return $this->{$localStorage};
         }
-    }
-
-    /**
-     * Set a stored local variable to something else
-     *
-     * @param string $localStorage
-     * @param string $variable
-     * @param mixed $value
-     */
-    private function setLocalParam($localStorage, $variable, $value)
-    {
-        $this->{$localStorage}[$variable] = $value;
     }
 }
